@@ -1,0 +1,217 @@
+#!/usr/bin/perl
+# double color predict version 0.1 with perl language.
+# use genetic algorithm to search the solution.
+# 2015-01-04
+
+# use this to generate a set of numbers sorted.
+sub genrandomnumber
+{
+	
+	$k = 0;
+	my @rr;
+	while($k < 6)
+	{
+		$repeat = 0;
+		srand;
+		$num = int(rand(34));
+		if($num != 0)
+		{
+			foreach(@rr)
+			{
+				if($num == $_)
+				{
+					$repeat = 1;
+				}
+			}
+			if ($repeat != 1)
+			{
+				$k++;
+				push @rr, $num;
+			}	
+		}
+	}
+	@rr = sort {$a <=> $b} @rr;
+	#print("random ball are @rr\n");	
+	return @rr;
+}
+
+# use this to calculate fitness parameters.
+sub onelinepredict
+{
+	$interlength = 10;
+	@inter = @_;
+	$linenum = @inter;
+	$j = 0;
+	@model = @inter[($linenum-$interlength)..($linenum-1)];
+	$score = 0;
+	while($j < $linenum - $interlength )
+	{
+		@tmpinter = @inter[$j..($j+$interlength - 1)];
+
+		$k = 0;
+		$scoretmp=0;
+
+		foreach(@tmpinter)
+		{
+			if($_ == $model[$k])
+			{
+				$scoretmp ++; 
+			}
+			$k ++;
+		}
+		if ($scoretmp > $score	)
+		{
+			$score = $scoretmp;
+			$predictnumber = $inter[($j+$interlength)];
+			$position = $j;
+		}
+		
+		$j ++;
+	}
+	print("the one line predict result is $predictnumber, position is $position\n");
+	return $predictnumber;
+};
+
+
+# open files and prepare parameters.
+sub initialopen()
+{
+	open(FILE, "<ssq.TXT") or die "can't open file";
+
+	$redballnum = 6;
+	$specialballnum = 1;
+	@bluepossible = (0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+	while( $line = <FILE> )
+	{
+
+		chomp($line);
+		@onelinetmp = split(/\s+/,$line);
+		
+		push @blue, int($onelinetmp[7]);
+		$bluepossible[int($onelinetmp[7])-1] ++;
+		pop @onelinetmp;
+
+		$i = 1;
+		$tmpodd = 0;
+		$tmpbig = 0;
+		$tmptotal = 0;
+		@oneline =  $onelinetmp[0] ;
+		while($i <= $redballnum)
+		{
+			$tmptotal = $tmptotal + int($onelinetmp[$i]);
+			push @oneline, int($onelinetmp[$i]);
+			if ($onelinetmp[$i] % 2 != 0)
+			{
+				$tmpodd ++;	
+			}
+			if ($onelinetmp[$i] > 16)
+			{
+				$tmpbig ++;
+			}
+			$i ++;
+		}
+
+		push @red, [ @oneline ];
+		push @total, $tmptotal;
+		push @odd, $tmpodd;
+		push @big, $tmpbig;
+	}
+}
+
+sub printpossibleofblue()
+{
+	$kkk=1;
+	foreach(@bluepossible)
+	{
+	    $percent = ($_/@red)* 100;
+	    print("the posibility of $kkk is $percent  \% \n");
+	    $kkk ++;
+
+	}
+	$blueever = 1/16 * 100;
+	print("the blue everage posibility is $blueever \% \n");
+}
+
+sub predictall()
+{
+	print(" blue ball predict \n");
+	$blueresult = onelinepredict(@blue);
+	print(" total predict \n");
+	$totalresult = onelinepredict(@total);
+	print(" odd predict \n");
+	$oddresult = onelinepredict(@odd);
+	print(" big predict \n");
+	$bigresult = onelinepredict(@big);
+}
+
+sub predictrandom()
+{
+	$final = 99999999999;
+	$ii = 0;
+	while($ii < 100000)
+	{
+		$totaldiff = 0;
+		$odddiff = 0;
+		$bigdiff = 0;
+		@random1=genrandomnumber;
+		foreach(@random1)
+		{
+			$totaldiff = $totaldiff + $_;
+			if ($_ % 2 != 0)
+			{
+				$odddiff ++;	
+			}
+			if ($_ > 16)
+			{
+				$bigdiff ++;
+			}
+
+		}
+
+		$totaldiff = ($totalresult - $totaldiff)**2;
+		$odddiff = ($odddiff - $oddresult)**2;
+		$bigdiff = ($bigdiff - $bigresult)**2;
+
+		if($final  > $totaldiff + $odddiff + $bigdiff)
+		{
+			$final = $totaldiff + $odddiff + $bigdiff;
+			@finalnumber = @random1;
+			print("~~~~~~~~\n");
+			print("process bingo $ii\n");
+			print(" current random number predict: @finalnumber\n");
+			print(" total is $totaldiff, odd is $odddiff, big is $bigdiff, final is $final\n");
+		}
+		$ii ++;
+	}
+	print("***-----------------***\n");
+	print(" final number predict: @finalnumber, $blueresult\n");
+}
+
+sub closefile()
+{
+	close(FILE);
+}
+
+sub writertolog()
+{
+	open LOG, ">>ssqnumber.log";
+	print LOG "final number predict: @finalnumber, $blueresult\n";
+	print LOG "predict data: total is $totalresult, odd is $oddresult, big is $bigresult\n";
+	close LOG;
+}
+
+sub main()
+{
+	initialopen();
+	predictall();
+	printpossibleofblue();
+	predictrandom();
+	closefile();
+	writertolog();
+
+}
+
+
+main();
+

@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+# double color predict version 0.1 with perl language.
+# 2014-12-20
+
+# open ssq.TXT
+@rr = (3, 8, 14, 22, 24, 32);
+
+foreach(@rr)
+{
+    $total = $total + $_;
+}
+
+foreach(@rr)
+{
+    $k = int(($total - $_)/$_);
+    print("the result is $k \n");
+}

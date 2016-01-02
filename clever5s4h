@@ -1,0 +1,27 @@
+#!/usr/bin/perl
+
+#fill 12 numbers
+@tobeselect = ('02', '03', '06', '09', '12', '19', '20', '23', '26', '30', '32', '33');
+
+%index =('A'=>0,'B'=>1,'C'=>2,'D'=>3,'E'=>4,'F'=>5,'G'=>6,'H'=>7,'I'=>8,'J'=>9,'K'=>10,'L'=>11);
+
+print "   A  B  C  D  E  F  G  H  I  J  K  L\n";
+
+print "   $tobeselect[$index{'A'}] $tobeselect[$index{'B'}] $tobeselect[$index{'C'}] $tobeselect[$index{'D'}] $tobeselect[$index{'G'}] $tobeselect[$index{'K'}] \n";
+print "   $tobeselect[$index{'A'}] $tobeselect[$index{'B'}] $tobeselect[$index{'C'}] $tobeselect[$index{'E'}] $tobeselect[$index{'G'}] $tobeselect[$index{'K'}] \n";
+print "   $tobeselect[$index{'A'}] $tobeselect[$index{'B'}] $tobeselect[$index{'C'}] $tobeselect[$index{'G'}] $tobeselect[$index{'I'}] $tobeselect[$index{'K'}] \n";
+print "   $tobeselect[$index{'A'}] $tobeselect[$index{'B'}] $tobeselect[$index{'D'}] $tobeselect[$index{'E'}] $tobeselect[$index{'G'}] $tobeselect[$index{'K'}] \n";
+print "   $tobeselect[$index{'A'}] $tobeselect[$index{'B'}] $tobeselect[$index{'D'}] $tobeselect[$index{'G'}] $tobeselect[$index{'I'}] $tobeselect[$index{'K'}] \n";
+print "   $tobeselect[$index{'A'}] $tobeselect[$index{'B'}] $tobeselect[$index{'E'}] $tobeselect[$index{'G'}] $tobeselect[$index{'I'}] $tobeselect[$index{'K'}] \n";
+print "   $tobeselect[$index{'A'}] $tobeselect[$index{'B'}] $tobeselect[$index{'F'}] $tobeselect[$index{'H'}] $tobeselect[$index{'J'}] $tobeselect[$index{'L'}] \n";
+print "   $tobeselect[$index{'A'}] $tobeselect[$index{'F'}] $tobeselect[$index{'G'}] $tobeselect[$index{'H'}] $tobeselect[$index{'J'}] $tobeselect[$index{'L'}] \n";
+print "   $tobeselect[$index{'A'}] $tobeselect[$index{'F'}] $tobeselect[$index{'H'}] $tobeselect[$index{'J'}] $tobeselect[$index{'K'}] $tobeselect[$index{'L'}] \n";
+print "   $tobeselect[$index{'B'}] $tobeselect[$index{'F'}] $tobeselect[$index{'G'}] $tobeselect[$index{'H'}] $tobeselect[$index{'J'}] $tobeselect[$index{'L'}] \n";
+print "   $tobeselect[$index{'B'}] $tobeselect[$index{'F'}] $tobeselect[$index{'H'}] $tobeselect[$index{'J'}] $tobeselect[$index{'K'}] $tobeselect[$index{'L'}] \n";
+print "   $tobeselect[$index{'C'}] $tobeselect[$index{'D'}] $tobeselect[$index{'E'}] $tobeselect[$index{'F'}] $tobeselect[$index{'H'}] $tobeselect[$index{'I'}] \n";
+print "   $tobeselect[$index{'C'}] $tobeselect[$index{'D'}] $tobeselect[$index{'E'}] $tobeselect[$index{'F'}] $tobeselect[$index{'I'}] $tobeselect[$index{'J'}] \n";
+print "   $tobeselect[$index{'C'}] $tobeselect[$index{'D'}] $tobeselect[$index{'E'}] $tobeselect[$index{'F'}] $tobeselect[$index{'I'}] $tobeselect[$index{'L'}] \n";
+print "   $tobeselect[$index{'C'}] $tobeselect[$index{'D'}] $tobeselect[$index{'E'}] $tobeselect[$index{'H'}] $tobeselect[$index{'I'}] $tobeselect[$index{'J'}] \n";
+print "   $tobeselect[$index{'C'}] $tobeselect[$index{'D'}] $tobeselect[$index{'E'}] $tobeselect[$index{'H'}] $tobeselect[$index{'I'}] $tobeselect[$index{'L'}] \n";
+print "   $tobeselect[$index{'C'}] $tobeselect[$index{'D'}] $tobeselect[$index{'E'}] $tobeselect[$index{'I'}] $tobeselect[$index{'J'}] $tobeselect[$index{'L'}] \n";
+print "   $tobeselect[$index{'F'}] $tobeselect[$index{'G'}] $tobeselect[$index{'H'}] $tobeselect[$index{'J'}] $tobeselect[$index{'K'}] $tobeselect[$index{'L'}] \n";
